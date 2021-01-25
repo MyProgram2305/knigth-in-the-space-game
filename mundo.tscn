@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://roca.tscn" type="PackedScene" id=2]
+[ext_resource path="res://caminorocas.gd" type="Script" id=3]
+[ext_resource path="res://mundo.gd" type="Script" id=4]
+[ext_resource path="res://interfaz.tscn" type="PackedScene" id=5]
+[ext_resource path="res://sound/game-over.wav" type="AudioStream" id=7]
+[ext_resource path="res://sound/game-sound.ogg" type="AudioStream" id=8]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/space.png-ffbf476c665de74e776822d062938b8e.stex"
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -0.68924, -2.57399, 0, 0, 0, 0, 348.799, -0.954323, 0, 0, 0, 0, 350.059, 600.052, 0, 0, 0, 0, -1.45862, 600.052, 0, 0, 0, 0, -0.1987, -3.10924, 0, 0, 0, 0, -0.68924, -2.57399 )
+}
+
+[node name="mundo" type="Node"]
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_vertical_guides_": [ -329.038 ]
+}
+roca = ExtResource( 2 )
+
+[node name="fondo" type="TextureRect" parent="."]
+margin_right = 351.0
+margin_bottom = 599.0
+texture = SubResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 174.615, 300.175 )
+
+[node name="rocaTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="scoreTimer" type="Timer" parent="."]
+
+[node name="inicioTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="posicionDeInicio" type="Position2D" parent="."]
+position = Vector2( 175, 300 )
+
+[node name="camino" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="caminorocas" type="PathFollow2D" parent="camino"]
+position = Vector2( -0.68924, -2.57399 )
+rotation = 0.00463424
+script = ExtResource( 3 )
+
+[node name="interfaz" parent="." instance=ExtResource( 5 )]
+
+[node name="audiogameover" type="AudioStreamPlayer" parent="."]
+pause_mode = 1
+stream = ExtResource( 7 )
+
+[node name="audiogame" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+[connection signal="golpe" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="rocaTimer" to="." method="_on_rocaTimer_timeout"]
+[connection signal="timeout" from="scoreTimer" to="." method="_on_scoreTimer_timeout"]
+[connection signal="timeout" from="inicioTimer" to="." method="_on_inicioTimer_timeout"]
+[connection signal="iniciar_juego" from="interfaz" to="." method="nuevo_juego"]

@@ -1,0 +1,55 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://sprites-knigth-in-the-space/knhigth-atras-0.png" type="Texture" id=1]
+[ext_resource path="res://sprites-knigth-in-the-space/knhigth-atras-1.png" type="Texture" id=2]
+[ext_resource path="res://sprites-knigth-in-the-space/knhigth-atras-2.png" type="Texture" id=3]
+[ext_resource path="res://sprites-knigth-in-the-space/knhigth-der-0.png" type="Texture" id=4]
+[ext_resource path="res://sprites-knigth-in-the-space/knhigth-frente-1.png" type="Texture" id=5]
+[ext_resource path="res://sprites-knigth-in-the-space/knhigth-der-1.png" type="Texture" id=6]
+[ext_resource path="res://sprites-knigth-in-the-space/knhigth-der-2.png" type="Texture" id=7]
+[ext_resource path="res://Player.gd" type="Script" id=8]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "atras",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "lado",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": false,
+"name": "frente",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 15.4707
+height = 71.4181
+
+[node name="Player" type="Area2D"]
+position = Vector2( 144.309, 260.889 )
+script = ExtResource( 8 )
+velocidad = 400
+
+[node name="spriteplayer" type="AnimatedSprite" parent="."]
+position = Vector2( -4.67645, -23.69 )
+scale = Vector2( 1.69412, 1.70556 )
+frames = SubResource( 1 )
+animation = "frente"
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( -3.54947, -19.6281 )
+shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]

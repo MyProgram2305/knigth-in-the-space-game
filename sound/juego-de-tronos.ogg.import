@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/juego-de-tronos.ogg-bec5eb2dd5be7211fc10610795cf2784.oggstr"
+
+[deps]
+
+source_file="res://sound/juego-de-tronos.ogg"
+dest_files=[ "res://.import/juego-de-tronos.ogg-bec5eb2dd5be7211fc10610795cf2784.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
